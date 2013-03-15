@@ -172,6 +172,8 @@ public class CheckoutCommand extends GitCommand<Ref> {
 
 	private boolean checkoutAllPaths;
 
+    private boolean handleConflicts = false;
+
 	/**
 	 * @param repo
 	 */
@@ -235,7 +237,7 @@ public class CheckoutCommand extends GitCommand<Ref> {
 			try {
 				dco = new DirCacheCheckout(repo, headTree, dc,
 						newCommit.getTree());
-				dco.setFailOnConflict(true);
+				dco.setFailOnConflict(!handleConflicts);
 				try {
 					dco.checkout();
 				} catch (org.eclipse.jgit.errors.CheckoutConflictException e) {
@@ -344,7 +346,17 @@ public class CheckoutCommand extends GitCommand<Ref> {
 		return this;
 	}
 
-	/**
+    /**
+     * Set whether the checkout should handle conflicts
+     */
+    public CheckoutCommand setHandleConflicts(boolean handleConflicts) {
+        this.handleConflicts = handleConflicts;
+        return this;
+    }
+
+
+
+    /**
 	 * Checkout paths into index and working directory
 	 *
 	 * @return this instance
