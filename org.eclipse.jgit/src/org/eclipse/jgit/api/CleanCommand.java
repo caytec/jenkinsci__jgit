@@ -72,7 +72,11 @@ public class CleanCommand extends GitCommand<Set<String>> {
 
 	private boolean ignore = true;
 
-	/**
+    private boolean retry = false;
+
+    private boolean ignoreFailure = false;
+
+    /**
 	 * @param repo
 	 */
 	protected CleanCommand(Repository repo) {
@@ -120,17 +124,24 @@ public class CleanCommand extends GitCommand<Set<String>> {
 
 			for (String file : notIgnoredFiles)
 				if (paths.isEmpty() || paths.contains(file)) {
-					if (!dryRun)
-						FileUtils.delete(new File(repo.getWorkTree(), file));
+					if (!dryRun) {
+                        int flag = FileUtils.NONE;
+                        if (retry) flag += FileUtils.RETRY;
+                        if (ignoreFailure) flag += FileUtils.IGNORE_ERRORS;
+						FileUtils.delete(new File(repo.getWorkTree(), file), flag);
+                    }
 					files.add(file);
 				}
 
 			if (directories)
 				for (String dir : notIgnoredDirs)
 					if (paths.isEmpty() || paths.contains(dir)) {
-						if (!dryRun)
-							FileUtils.delete(new File(repo.getWorkTree(), dir),
-									FileUtils.RECURSIVE);
+						if (!dryRun) {
+                            int flag = FileUtils.RECURSIVE;
+                            if (retry) flag += FileUtils.RETRY;
+                            if (ignoreFailure) flag += FileUtils.IGNORE_ERRORS;
+							FileUtils.delete(new File(repo.getWorkTree(), dir), flag);
+                        }
 						files.add(dir + "/"); //$NON-NLS-1$
 					}
 		} catch (IOException e) {
@@ -218,4 +229,22 @@ public class CleanCommand extends GitCommand<Set<String>> {
 		this.ignore = ignore;
 		return this;
 	}
+
+    /**
+     * Option not to throw exceptions when a deletion finally doesn't succeed.
+     */
+    public CleanCommand setIgnoreFailure(boolean ignoreFailure) {
+        this.ignoreFailure = ignoreFailure;
+        return this;
+    }
+
+    /**
+     * Option to retry deletion if not successful.
+     */
+    public CleanCommand setRetry(boolean retry) {
+        this.retry = retry;
+        return this;
+    }
+
+
 }
