@@ -467,9 +467,11 @@
           <name>!jgit.java6.skip</name>
         </property>
       </activation>
+<!--
       <modules>
         <module>org.eclipse.jgit.console</module>
       </modules>
+-->
     </profile>
     <profile>
       <id>static-checks</id>
@@ -490,6 +492,7 @@
 
   <modules>
     <module>org.eclipse.jgit</module>
+<!--
     <module>org.eclipse.jgit.ant</module>
     <module>org.eclipse.jgit.ui</module>
     <module>org.eclipse.jgit.http.server</module>
@@ -501,6 +504,7 @@
     <module>org.eclipse.jgit.ant.test</module>
     <module>org.eclipse.jgit.http.test</module>
     <module>org.eclipse.jgit.pgm.test</module>
+-->
   </modules>
 
 </project>
