@@ -47,6 +47,7 @@ package org.eclipse.jgit.storage.file;
 import java.io.IOException;
 import java.lang.ref.ReferenceQueue;
 import java.lang.ref.SoftReference;
+import java.security.SecureRandom;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
@@ -129,7 +130,7 @@ public class WindowCache {
 		return Integer.numberOfTrailingZeros(newSize);
 	}
 
-	private static final Random rng = new Random();
+	private static final Random rng = new SecureRandom();
 
 	private static volatile WindowCache cache;
 

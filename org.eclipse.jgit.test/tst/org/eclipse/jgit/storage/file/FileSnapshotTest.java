@@ -48,6 +48,7 @@ import static org.junit.Assert.assertTrue;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -139,7 +140,7 @@ public class FileSnapshotTest {
 
 	private File createFile(String string) throws IOException {
 		trash.mkdirs();
-		File f = File.createTempFile(string, "tdat", trash);
+		File f = Files.createTempFile(trash.toPath(), string, "tdat").toFile();
 		files.add(f);
 		return f;
 	}

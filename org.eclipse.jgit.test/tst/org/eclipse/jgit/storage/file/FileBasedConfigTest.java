@@ -49,6 +49,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Files;
 
 import org.eclipse.jgit.errors.ConfigInvalidException;
 import org.eclipse.jgit.util.FS;
@@ -150,7 +151,7 @@ public class FileBasedConfigTest {
 
 	private File createFile(byte[] content) throws IOException {
 		trash.mkdirs();
-		File f = File.createTempFile(getClass().getName(), null, trash);
+		File f = Files.createTempFile(trash.toPath(), getClass().getName(), null).toFile();
 		FileOutputStream os = new FileOutputStream(f, true);
 		try {
 			os.write(content);

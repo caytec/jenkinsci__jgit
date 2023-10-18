@@ -55,6 +55,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.nio.file.Files;
 import java.util.Map;
 import java.util.TreeSet;
 
@@ -377,7 +378,7 @@ public abstract class RepositoryTestCase extends LocalDiskRepositoryTestCase {
 		long sleepTime = 1;
 		if (lastFile != null && !lastFile.exists())
 			throw new FileNotFoundException(lastFile.getPath());
-		File tmp = File.createTempFile("FileTreeIteratorWithTimeControl", null);
+		File tmp = Files.createTempFile("FileTreeIteratorWithTimeControl", null).toFile();
 		try {
 			long startTime = (lastFile == null) ? tmp.lastModified() : lastFile
 					.lastModified();

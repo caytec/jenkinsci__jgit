@@ -53,6 +53,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.channels.Channels;
+import java.nio.file.Files;
 import java.security.DigestOutputStream;
 import java.security.MessageDigest;
 import java.util.zip.Deflater;
@@ -224,7 +225,7 @@ class ObjectDirectoryInserter extends ObjectInserter {
 	}
 
 	File newTempFile() throws IOException {
-		return File.createTempFile("noz", null, db.getDirectory()); //$NON-NLS-1$
+		return Files.createTempFile(db.getDirectory().toPath(), "noz", null).toFile(); //$NON-NLS-1$
 	}
 
 	DeflaterOutputStream compress(final OutputStream out) {

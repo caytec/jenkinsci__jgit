@@ -48,6 +48,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -810,7 +811,7 @@ class WalkFetchConnection extends BaseFetchConnection {
 			if (index != null)
 				return;
 			if (tmpIdx == null)
-				tmpIdx = File.createTempFile("jgit-walk-", ".idx"); //$NON-NLS-1$ //$NON-NLS-2$
+				tmpIdx = Files.createTempFile("jgit-walk-", ".idx").toFile(); //$NON-NLS-1$ //$NON-NLS-2$
 			else if (tmpIdx.isFile()) {
 				try {
 					index = PackIndex.open(tmpIdx);

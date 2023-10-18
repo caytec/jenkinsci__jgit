@@ -52,6 +52,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.channels.Channels;
 import java.nio.channels.FileChannel;
+import java.nio.file.Files;
 import java.text.MessageFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -677,7 +678,7 @@ public class GC {
 			// create temporary files
 			String id = pw.computeName().getName();
 			File packdir = new File(repo.getObjectsDirectory(), "pack"); //$NON-NLS-1$
-			tmpPack = File.createTempFile("gc_", ".pack_tmp", packdir); //$NON-NLS-1$ //$NON-NLS-2$
+			tmpPack = Files.createTempFile(packdir.toPath(), "gc_", ".pack_tmp").toFile(); //$NON-NLS-1$ //$NON-NLS-2$
 			final String tmpBase = tmpPack.getName()
 					.substring(0, tmpPack.getName().lastIndexOf('.'));
 			File tmpIdx = new File(packdir, tmpBase + ".idx_tmp"); //$NON-NLS-1$

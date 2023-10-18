@@ -50,6 +50,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.file.Files;
 import java.util.ArrayList;
 
 import org.eclipse.jgit.internal.JGitText;
@@ -408,7 +409,7 @@ public abstract class TemporaryBuffer extends OutputStream {
 		}
 
 		protected OutputStream overflow() throws IOException {
-			onDiskFile = File.createTempFile("jgit_", ".buf", directory); //$NON-NLS-1$ //$NON-NLS-2$
+			onDiskFile = Files.createTempFile(directory.toPath(), "jgit_", ".buf").toFile(); //$NON-NLS-1$ //$NON-NLS-2$
 			return new FileOutputStream(onDiskFile);
 		}
 

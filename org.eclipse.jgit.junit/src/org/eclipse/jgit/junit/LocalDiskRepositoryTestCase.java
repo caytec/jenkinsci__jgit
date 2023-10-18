@@ -50,6 +50,7 @@ import static org.junit.Assert.fail;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -400,7 +401,7 @@ public abstract class LocalDiskRepositoryTestCase {
 	 *             the file could not be written.
 	 */
 	protected File write(final String body) throws IOException {
-		final File f = File.createTempFile("temp", "txt", trash);
+		final File f = Files.createTempFile(trash.toPath(), "temp", "txt").toFile();
 		try {
 			write(f, body);
 			return f;

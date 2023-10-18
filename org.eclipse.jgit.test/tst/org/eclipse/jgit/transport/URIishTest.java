@@ -54,6 +54,7 @@ import static org.junit.Assert.fail;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.nio.file.Files;
 
 import org.junit.Ignore;
 import org.junit.Test;
@@ -775,7 +776,7 @@ public class URIishTest {
 		assertNull(u.getUser());
 		assertEquals("b.txt", u.getHumanishName());
 
-		File tmp = File.createTempFile("jgitUnitTest", ".tmp");
+		File tmp = Files.createTempFile("jgitUnitTest", ".tmp").toFile();
 		u = new URIish(tmp.toURI().toString());
 		assertEquals("file", u.getScheme());
 		assertFalse(u.isRemote());

@@ -52,6 +52,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -188,7 +189,7 @@ abstract class HttpAuthMethod {
 	private static class Digest extends HttpAuthMethod {
 		static final String NAME = "Digest"; //$NON-NLS-1$
 
-		private static final Random PRNG = new Random();
+		private static final Random PRNG = new SecureRandom();
 
 		private final Map<String, String> params;
 
